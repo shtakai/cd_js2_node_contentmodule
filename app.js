@@ -1,14 +1,15 @@
 var http = require('http');
 var fs = require('fs');
 var port = 8000;
+var static_contents = require('./lib/static_contents');
 
 // creating server
 server = http.createServer(function(request,response){
   response.writeHead(200, {'Content-type': 'text/html'});
   console.log(`Request ${request.url}`);
+  static_contents(request, response);
 
   if(request.url === '/'){
-    console.log('----');
     fs.readFile('views/index.html', 'utf8', function(error,contents){
       response.write(contents);
       response.end();
